@@ -150,68 +150,7 @@ python -m streamlit run streamlit_app.py
 
 The UI shows the current paper library in the sidebar and lets the Agent automatically choose relevant papers. It does not require users to manually select papers. When the Agent pauses for Human-in-the-loop review, the UI displays the returned decision buttons and resumes the same LangGraph thread.
 
-## Offline Evaluation
 
-The formal frozen evaluation set is:
-
-```text
-eval/eval_cases_v1.jsonl
-```
-
-Validate the dataset and PDF manifest locally:
-
-```powershell
-python eval/validate_eval_cases.py --check-manifest
-```
-
-Run routing evaluation without real API calls:
-
-```powershell
-python eval/evaluate_routing.py `
-  --cases eval/eval_cases_v1.jsonl `
-  --output eval/results/routing_baseline
-```
-
-Run retrieval evaluation after `db/` and `.env` are ready:
-
-```powershell
-python eval/evaluate_retrieval.py `
-  --cases eval/eval_cases_v1.jsonl `
-  --output eval/results/retrieval_oracle_k5 `
-  --source-mode oracle `
-  --top-k 5 `
-  --run-live
-```
-
-Run targeted end-to-end smoke evaluation:
-
-```powershell
-python eval/evaluate_agent.py `
-  --cases eval/eval_cases_v1.jsonl `
-  --output eval/results/agent_smoke `
-  --run-live
-```
-
-`eval/results/` is ignored by git because these reports are local run artifacts.
-
-## Tests
-
-Local verification used during development:
-
-```powershell
-python -m py_compile ingest.py agent_tools.py paper_agent.py streamlit_app.py ui_agent_adapter.py test_paper_agent.py
-python -m pytest -q
-python eval/validate_eval_cases.py --check-manifest
-```
-
-The full local test and manifest checks assume the project PDFs are present under `data/`. In a fresh public clone, first add PDFs and run `python ingest.py`. Live evaluation commands also require a valid `.env` and a built `db/`.
-
-## Safety Notes
-
-- Do not commit `.env`, API keys, PDF data, Chroma databases, SQLite checkpoints, or evaluation result folders.
-- `distance_score` means lower is more similar for Chroma similarity search.
-- Final citations are generated and normalized deterministically by Python after model output.
-- If evidence is missing, the Agent should say so instead of filling gaps from model memory.
 
 ## License
 
