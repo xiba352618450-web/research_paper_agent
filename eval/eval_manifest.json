@@ -1,0 +1,33 @@
+{
+  "dataset_version": "v1-final",
+  "page_numbering": "1-based-physical-pdf-page",
+  "dataset_file": "eval/eval_cases_v1.jsonl",
+  "dataset_sha256": "b98478afc3defddfd0d7673dbe68836343770fe2fe10a7e29d68dc285c643d9d",
+  "case_count": 20,
+  "pdfs": {
+    "01 Attention Is All You Need.pdf": {
+      "page_count": 15,
+      "sha256": "bdfaa68d8984f0dc02beaca527b76f207d99b666d31d1da728ee0728182df697"
+    },
+    "02 Language Models are Few-Shot Learners.pdf": {
+      "page_count": 75,
+      "sha256": "97fd272f1fdfc18677462d0292f5fbf26ca86b4d1b485c2dba03269b643a0e83"
+    },
+    "03 InstructGPT RLHF - Training Language Models to Follow Instructions with Human Feedback.pdf": {
+      "page_count": 68,
+      "sha256": "c1984bb50a5b90fddb895fdc3a0f72e5bc977148c9f63ef6040cbe7a3e1f0d98"
+    },
+    "04 RAG - Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks.pdf": {
+      "page_count": 19,
+      "sha256": "23e3249e9a1e75418d82efecab0ea8c4d033b89c93742f63208d47ce01f21233"
+    },
+    "05 LoRA - Low-Rank Adaptation of Large Language Models.pdf": {
+      "page_count": 26,
+      "sha256": "e9a0d3128767db616085dc0f4e6e455e672e89af823e8ed1282793682787395a"
+    },
+    "06 ReAct - Synergizing Reasoning and Acting in Language Models.pdf": {
+      "page_count": 33,
+      "sha256": "f285b0971ae4a790e402fb93966bed3adde2cf0a04977d08b2b40d6ab0cace69"
+    }
+  }
+}

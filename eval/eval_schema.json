@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "research_paper_agent offline evaluation case schema v1-final",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "category",
+    "question",
+    "expected_intent",
+    "expected_papers",
+    "expected_aspects",
+    "expected_evidence_status",
+    "expected_human_review",
+    "human_decisions",
+    "retrieval_eval_mode",
+    "gold_page_groups",
+    "gold_pages",
+    "expected_facts",
+    "must_include",
+    "must_include_any",
+    "must_not_include",
+    "manual_checks",
+    "expected_behavior",
+    "notes",
+    "review_status",
+    "thread_mode",
+    "resume_within_case"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^eval-\\d{3}$" },
+    "category": {
+      "type": "string",
+      "enum": [
+        "单篇完整分析",
+        "方法与公式解释",
+        "实验结果分析",
+        "多论文比较",
+        "精确参数或数字查询",
+        "论文未明确说明",
+        "模糊指代与澄清",
+        "Human-in-the-loop"
+      ]
+    },
+    "question": { "type": "string", "minLength": 1 },
+    "expected_intent": {
+      "type": "string",
+      "enum": [
+        "paper_analysis",
+        "paper_summary",
+        "method_explain",
+        "experiment_analysis",
+        "paper_comparison",
+        "reproduction_plan",
+        "research_inspiration",
+        "general_qa",
+        "clarification"
+      ]
+    },
+    "expected_papers": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "expected_aspects": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "expected_evidence_status": {
+      "type": "string",
+      "enum": ["sufficient", "sufficient_with_gaps", "insufficient", "retrieval_failed", "not_applicable"]
+    },
+    "expected_human_review": { "type": "boolean" },
+    "human_decisions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["answer_with_gaps", "local_deep_search", "revise_question", "cancel"]
+      }
+    },
+    "retrieval_eval_mode": {
+      "type": "string",
+      "enum": ["page_recall", "group_recall", "none"]
+    },
+    "gold_page_groups": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["aspect", "pages"],
+          "additionalProperties": false,
+          "properties": {
+            "aspect": { "type": "string", "minLength": 1 },
+            "pages": {
+              "type": "array",
+              "items": { "type": "integer", "minimum": 1 },
+              "minItems": 1
+            }
+          }
+        }
+      }
+    },
+    "gold_pages": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "expected_facts": {
+      "type": "object",
+      "description": "Hard facts explicitly requested by the user question. They must be checked with fact_match_rules or equivalent semantic checks; do not grade them by raw substring presence."
+    },
+    "supporting_facts": {
+      "type": "object",
+      "description": "Optional stable paper facts. Missing them must not fail an answer; if an answer uses them, they must be correct and supported by evidence."
+    },
+    "fact_match_rules": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["mode"],
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": ["case_insensitive_exact", "numeric_exact", "numeric_equivalent", "numeric_relation", "subset"]
+          },
+          "aliases": { "type": "array", "items": { "type": "string" } },
+          "expected": {},
+          "accepted_forms": { "type": "array", "items": { "type": "string" } },
+          "tolerance": { "type": "number" },
+          "min_matches": { "type": "integer", "minimum": 1 },
+          "reject_incorrect_values": { "type": "boolean" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "must_include": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "must_include_any": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": { "type": "string" },
+        "minItems": 1
+      }
+    },
+    "must_include_policy": {
+      "type": "object",
+      "required": ["mode"],
+      "properties": {
+        "mode": { "type": "string", "enum": ["all", "at_least"] },
+        "min_groups": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "must_match_regex": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "must_not_include": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "manual_checks": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "expected_behavior": { "type": "string" },
+    "notes": { "type": "string" },
+    "review_status": {
+      "type": "string",
+      "enum": ["needs_manual_review", "needs_manual_fact_review", "reviewed", "reviewed_with_manual_semantic_check"]
+    },
+    "thread_mode": {
+      "type": "string",
+      "enum": ["fresh_per_case"]
+    },
+    "resume_within_case": {
+      "type": "boolean"
+    }
+  }
+}

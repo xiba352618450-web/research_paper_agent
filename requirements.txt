@@ -1,0 +1,16 @@
+python-dotenv
+pypdf
+protobuf>=4.25.8,<6
+
+langchain
+langchain-community
+langchain-openai
+langchain-text-splitters
+langchain-chroma
+chromadb
+
+langgraph
+langgraph-checkpoint-sqlite
+
+streamlit>=1.36
+pytest

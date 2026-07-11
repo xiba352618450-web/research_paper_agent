@@ -1,0 +1,40 @@
+# API Key / environment
+.env
+.env.*
+!.env.example
+
+# Local data and vector database
+data/
+db/
+runtime/
+eval/results/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.db
+*.db-shm
+*.db-wal
+
+# Python cache
+__pycache__/
+**/__pycache__/
+.pytest_cache/
+*.pyc
+*.pyo
+*.pyd
+
+# Logs
+*.log
+runtime/*.log
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local scratch artifacts
+*.tmp
+*.bak
