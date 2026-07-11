@@ -213,34 +213,6 @@ The full local test and manifest checks assume the project PDFs are present unde
 - Final citations are generated and normalized deterministically by Python after model output.
 - If evidence is missing, the Agent should say so instead of filling gaps from model memory.
 
-## GitHub Release Checklist
-
-Before publishing:
-
-```powershell
-rg "sk-[A-Za-z0-9_-]{10,}|OPENAI_API_KEY\s*=\s*sk-" `
-  -g "!data/**" -g "!db/**" -g "!runtime/**" -g "!eval/results/**" -g "!.env"
-python -m pytest -q
-git status --short
-```
-
-Then initialize and commit:
-
-```powershell
-git init
-git add .
-git status --short
-git commit -m "Initial public release"
-```
-
-Create an empty GitHub repository, add its remote, then push:
-
-```powershell
-git remote add origin https://github.com/<your-name>/<repo-name>.git
-git branch -M main
-git push -u origin main
-```
-
 ## License
 
 MIT. See [LICENSE](LICENSE).
